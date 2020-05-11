@@ -1,0 +1,18 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
+    "format": "lerna run format --stream --no-bail",
+    "format:check": "lerna run format:check --stream --no-bail",
+    "lint": "lerna run lint --stream --no-bail",
+    "test": "lerna run test --stream --no-bail",
+    "test:coverage": "lerna run test:coverage --stream --no-bail",
+    "build": "lerna run build --stream",
+    "build:check": "lerna run build --stream --no-bail"
+  },
+  "author": "Patrick Braune <pabra@netzfruech.de>",
+  "devDependencies": {
+    "lerna": "^3.21.0"
+  }
+}
