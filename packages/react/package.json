@@ -1,6 +1,6 @@
 {
   "name": "@tongue/react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "> TODO: description",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -34,8 +34,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@tongue/common": "^0.1.1",
-    "@tongue/translate": "^0.1.1",
+    "@tongue/common": "^0.1.2",
+    "@tongue/translate": "^0.1.2",
     "react-hooksack": "^1.4.7"
   },
   "devDependencies": {
