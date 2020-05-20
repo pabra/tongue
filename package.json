@@ -10,7 +10,8 @@
     "test:coverage": "lerna run test:coverage --stream --no-bail",
     "build": "lerna run build --stream",
     "build:check": "lerna run build --stream --no-bail",
-    "prepublishOnly": "run-s format:check build lint test"
+    "prepublishOnly": "run-s format:check build lint test",
+    "publish": "lerna publish"
   },
   "author": "Patrick Braune <pabra@netzfruech.de>",
   "devDependencies": {
