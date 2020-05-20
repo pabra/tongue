@@ -92,7 +92,7 @@ test('translate', async () => {
       expect(indicateRenderApp).toHaveBeenCalledTimes(1);
       expect(indicateRenderTranslateFn).toHaveBeenCalledTimes(2);
       expect(indicateRenderHoc).toHaveBeenCalledTimes(1);
-      expect(indicateRenderLanguageToggle).toHaveBeenCalledTimes(1);
+      expect(indicateRenderLanguageToggle).toHaveBeenCalledTimes(2);
     },
     { container },
   );
