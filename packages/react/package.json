@@ -1,5 +1,5 @@
 {
-  "name": "@tongue/react",
+  "name": "@pabra/tongue-react",
   "version": "0.1.4",
   "description": "> TODO: description",
   "sideEffects": false,
@@ -34,8 +34,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@tongue/common": "^0.1.4",
-    "@tongue/translate": "^0.1.4",
+    "@pabra/tongue-common": "^0.1.4",
+    "@pabra/tongue-translate": "^0.1.4",
     "react-hooksack": "^1.4.7"
   },
   "devDependencies": {

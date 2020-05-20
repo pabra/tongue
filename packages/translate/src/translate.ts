@@ -1,4 +1,4 @@
-import { EntriesFile, isKeyof, validArgExp } from '@tongue/common';
+import { EntriesFile, isKeyof, validArgExp } from '@pabra/tongue-common';
 
 export type Args<
   Entries extends EntriesFile,

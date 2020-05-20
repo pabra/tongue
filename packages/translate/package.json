@@ -1,5 +1,5 @@
 {
-  "name": "@tongue/translate",
+  "name": "@pabra/tongue-translate",
   "version": "0.1.4",
   "description": "> TODO: description",
   "sideEffects": false,
@@ -34,7 +34,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@tongue/common": "^0.1.4"
+    "@pabra/tongue-common": "^0.1.4"
   },
   "devDependencies": {
     "@types/jest": "^25.2.2",

@@ -1,6 +1,6 @@
 {
-  "name": "@tongue/common",
-  "version": "0.1.4",
+  "name": "@pabra/tongue-common",
+  "version": "0.1.5",
   "description": "> TODO: description",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
