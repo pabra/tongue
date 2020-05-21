@@ -1,6 +1,6 @@
 {
   "name": "@pabra/tongue-translate",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "> TODO: description",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
