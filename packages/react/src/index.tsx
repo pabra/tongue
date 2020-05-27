@@ -19,6 +19,11 @@ type TranslateOverload<Entries extends EntriesFile> = {
   }): JSX.Element;
 };
 
+type Language<E extends EntriesFile, T extends AllTranslations<E>> = [
+  keyof T,
+  (arg: keyof T | ((lang: keyof T) => keyof T)) => void,
+];
+
 type SetLanguage<E extends EntriesFile, T extends AllTranslations<E>> = (
   arg: keyof T | ((lang: keyof T) => keyof T),
 ) => void;
@@ -36,6 +41,7 @@ const init = <
   entries: Entries,
   translations: Translations,
 ): {
+  useLanguage: () => Language<Entries, Translations>;
   useSetLanguage: () => SetLanguage<Entries, Translations>;
   useTranslate: () => UseTranslate<Entries, Translations>;
   Translate: TranslateOverload<Entries>;
@@ -43,8 +49,11 @@ const init = <
   const localix = localixInit(entries, translations);
   const useReactLanguage = makeStore(localix.getLanguage());
 
+  const useLanguage = (): Language<Entries, Translations> => useReactLanguage();
+
   const useSetLanguage = (): SetLanguage<Entries, Translations> =>
     useReactLanguage('justSetter');
+
   const useTranslate = (): UseTranslate<Entries, Translations> => {
     const [language, setLanguage] = useReactLanguage();
     const translate: TOverload<Entries> = <E extends keyof Entries>(
@@ -66,7 +75,7 @@ const init = <
     return <>{t(entry, args)}</>;
   };
 
-  return { useSetLanguage, useTranslate, Translate };
+  return { useLanguage, useSetLanguage, useTranslate, Translate };
 };
 
 export default init;
