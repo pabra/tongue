@@ -1,6 +1,6 @@
 {
   "name": "@pabra/tongue-translate",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "> TODO: description",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -34,7 +34,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@pabra/tongue-common": "^0.1.7"
+    "@pabra/tongue-common": "^0.1.8"
   },
   "devDependencies": {
     "@types/jest": "^25.2.2",
