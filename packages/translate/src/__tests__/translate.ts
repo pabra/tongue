@@ -17,7 +17,7 @@ const en = {
   'test with multiple words': 'en - test with multiple - en',
   'line\nbreaks': 'en - line\nbreaks - en',
   'test with args': 'test args {a} and {b}.',
-  'test with duplicate args': 'test b {b} abd b {b} and a {a} and {b}',
+  'test with duplicate args': 'test b {b} and b {b} and a {a} and {b}',
   test2: `test
     {arg2} with {arg1
     } and { arg2\n} \nand {\targ1 } again`,
@@ -52,7 +52,7 @@ test('translate', () => {
   );
   expect(
     translate('en', 'test with duplicate args', { a: 'my A', b: 'my B' }),
-  ).toBe('test b my B abd b my B and a my A and my B');
+  ).toBe('test b my B and b my B and a my A and my B');
   expect(
     translate('en', 'test2', { arg1: 'my first', arg2: 'my second' }),
   ).toBe(
@@ -97,7 +97,7 @@ test('t with dicts', () => {
     'test args my A and my B.',
   );
   expect(t('test with duplicate args', { a: 'my A', b: 'my B' })).toBe(
-    'test b my B abd b my B and a my A and my B',
+    'test b my B and b my B and a my A and my B',
   );
   expect(t('test2', { arg1: 'my first', arg2: 'my second' })).toBe(
     'test\n    my second with my first and my second \nand my first again',
