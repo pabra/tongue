@@ -1,5 +1,5 @@
 import type { EntriesFile } from '@pabra/tongue-common';
-import localixInit from '@pabra/tongue-translate';
+import tongueInit from '@pabra/tongue-translate';
 import type { AllTranslations, Args, TOverload } from '@pabra/tongue-translate';
 import React from 'react';
 import makeStore from 'react-hooksack';
@@ -46,8 +46,8 @@ const init = <
   useTranslate: () => UseTranslate<Entries, Translations>;
   Translate: TranslateOverload<Entries>;
 } => {
-  const localix = localixInit(entries, translations);
-  const useReactLanguage = makeStore(localix.getLanguage());
+  const tongue = tongueInit(entries, translations);
+  const useReactLanguage = makeStore(tongue.getLanguage());
 
   const useLanguage = (): Language<Entries, Translations> => useReactLanguage();
 
@@ -59,7 +59,7 @@ const init = <
     const translate: TOverload<Entries> = <E extends keyof Entries>(
       entry: E,
       args?: any,
-    ) => localix.translate(language, entry, args);
+    ) => tongue.translate(language, entry, args);
 
     return { language, setLanguage, translate };
   };
