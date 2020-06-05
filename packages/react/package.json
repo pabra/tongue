@@ -33,6 +33,14 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pabra/tongue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pabra/tongue/issues"
+  },
+  "homepage": "https://github.com/pabra/tongue/tree/master/packages/react#readme",
   "dependencies": {
     "@pabra/tongue-common": "^0.1.8",
     "@pabra/tongue-translate": "^0.1.8",
