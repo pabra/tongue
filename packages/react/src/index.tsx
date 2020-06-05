@@ -41,6 +41,7 @@ const init = <
   entries: Entries,
   translations: Translations,
 ): {
+  translate: typeof tongue.translate;
   useLanguage: () => Language<Entries, Translations>;
   useSetLanguage: () => SetLanguage<Entries, Translations>;
   useTranslate: () => UseTranslate<Entries, Translations>;
@@ -75,7 +76,13 @@ const init = <
     return <>{t(entry, args)}</>;
   };
 
-  return { useLanguage, useSetLanguage, useTranslate, Translate };
+  return {
+    translate: tongue.translate,
+    useLanguage,
+    useSetLanguage,
+    useTranslate,
+    Translate,
+  };
 };
 
 export default init;
