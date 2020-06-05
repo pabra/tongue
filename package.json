@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap --hoist",
+    "outdated": "lerna exec -- ncu",
     "format": "lerna run format --stream --no-bail",
     "format:check": "lerna run format:check --stream --no-bail",
     "lint": "lerna run lint --stream --no-bail",
