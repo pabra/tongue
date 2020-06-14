@@ -1,6 +1,6 @@
 {
   "name": "@pabra/tongue-manage",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "> TODO: description",
   "sideEffects": false,
   "bin": {
@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/pabra/tongue/tree/master/packages/manage#readme",
   "dependencies": {
-    "@pabra/tongue-common": "^0.1.10",
+    "@pabra/tongue-common": "^0.1.11",
     "arg": "^4.1.3",
     "runtypes": "^4.2.0"
   },

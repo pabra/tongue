@@ -1,6 +1,6 @@
 {
   "name": "@pabra/tongue-translate",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "> TODO: description",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/pabra/tongue/tree/master/packages/translate#readme",
   "dependencies": {
-    "@pabra/tongue-common": "^0.1.10"
+    "@pabra/tongue-common": "^0.1.11"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
