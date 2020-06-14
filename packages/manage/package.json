@@ -1,0 +1,73 @@
+{
+  "name": "@pabra/tongue-manage",
+  "version": "0.1.9",
+  "description": "> TODO: description",
+  "sideEffects": false,
+  "bin": {
+    "tongue": "dist/cjs/cli.js"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean:coverage": "rimraf coverage/*",
+    "clean:build": "rimraf dist/*",
+    "clean:build:cjs": "rimraf dist/cjs/*",
+    "clean:build:esm": "rimraf dist/esm/*",
+    "test": "jest",
+    "pretest:coverage": "npm run clean:coverage",
+    "test:coverage": "jest --coverage",
+    "prebuild:cjs": "npm run clean:build:cjs",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "postbuild:cjs": "chmod +x dist/cjs/cli.js",
+    "prebuild:esm": "npm run clean:build:esm",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:check": "tsc",
+    "build": "run-p build:cjs build:esm",
+    "lint": "eslint \"src/**/*.{js,ts,jsx,tsx}\"",
+    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,html,css,scss,yml,yaml}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,json,html,css,scss,yml,yaml}\""
+  },
+  "keywords": [],
+  "author": "Patrick Braune <pabra@netzfruech.de>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pabra/tongue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pabra/tongue/issues"
+  },
+  "homepage": "https://github.com/pabra/tongue/tree/master/packages/manage#readme",
+  "dependencies": {
+    "@pabra/tongue-common": "^0.1.9",
+    "arg": "^4.1.3",
+    "runtypes": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.13.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "jest": "^26.0.1",
+    "npm-check-updates": "^6.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.5",
+    "prettier-plugin-organize-imports": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.1.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
+}

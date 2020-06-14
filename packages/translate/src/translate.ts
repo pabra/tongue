@@ -1,4 +1,9 @@
-import { EntriesFile, isKeyof, validArgExp } from '@pabra/tongue-common';
+import {
+  EntriesFile,
+  isKeyof,
+  TranslationFile,
+  validArgExp,
+} from '@pabra/tongue-common';
 
 export type Args<
   Entries extends EntriesFile,
@@ -9,7 +14,7 @@ export type Args<
   : never;
 
 type Translation<Entries extends EntriesFile> = {
-  [E in keyof Partial<Entries>]: null | string;
+  [E in keyof Partial<Entries>]: TranslationFile[string];
 };
 
 export type AllTranslations<Entries extends EntriesFile> = Record<
@@ -107,13 +112,8 @@ const init = <
     assertValidLanguage(lang);
 
     const dict = translations[lang];
-    const translation = isKeyof(dict, entry)
-      ? (dict[entry] as undefined | null | string)
-      : null;
-    const value =
-      translation === null || translation === undefined
-        ? markNotFound(entry)
-        : translation;
+    const translation = isKeyof(dict, entry) ? dict[entry] : null;
+    const value = translation ?? markNotFound(entry);
 
     return args
       ? value.replace(argPlaceholderExp, (match, argName) =>

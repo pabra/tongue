@@ -1,20 +1,30 @@
-import { Dictionary, Partial, Record, Static, String } from 'runtypes';
+import * as rt from 'runtypes';
 
 export const validArgExp = /[a-zA-Z][a-zA-Z0-9_]*/;
 export const fullArgExp = new RegExp('^' + validArgExp.source + '$');
 
-export const entriesFile = Dictionary(
-  Partial({
-    hint: String,
-    args: Dictionary(String, 'string'),
+export const entriesFile = rt.Dictionary(
+  rt.Partial({
+    hint: rt.String,
+    args: rt.Dictionary(rt.String, 'string'),
   }),
   'string',
 );
 
-const configContent = { entriesFile: String, srcFiles: String };
-const config = Record(configContent);
-export const configFile = Partial(configContent);
+export const translationFile = rt.Dictionary(
+  rt.Union(rt.Null, rt.String),
+  'string',
+);
 
-export type EntriesFile = Static<typeof entriesFile>;
-export type Config = Static<typeof config>;
+const configContent = {
+  entriesFile: rt.String,
+  translationsFiles: rt.Dictionary(rt.String),
+  srcDir: rt.String,
+};
+const config = rt.Record(configContent);
+export const configFile = rt.Partial(configContent);
+
+export type EntriesFile = rt.Static<typeof entriesFile>;
+export type TranslationFile = rt.Static<typeof translationFile>;
+export type Config = rt.Static<typeof config>;
 // export type ConfigFile = Static<typeof configFile>;

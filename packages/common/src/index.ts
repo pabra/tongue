@@ -1,3 +1,9 @@
-export { configFile, entriesFile, fullArgExp, validArgExp } from './types';
-export type { Config, EntriesFile } from './types';
+export {
+  configFile,
+  entriesFile,
+  fullArgExp,
+  translationFile,
+  validArgExp,
+} from './types';
+export type { Config, EntriesFile, TranslationFile } from './types';
 export { isKeyof } from './utils';
