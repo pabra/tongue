@@ -11,7 +11,8 @@
     "test:coverage": "lerna run test:coverage --stream --no-bail",
     "build": "lerna run build --stream",
     "build:check": "lerna run build --stream --no-bail",
-    "publish": "lerna exec npm publish"
+    "publish": "lerna exec npm publish",
+    "publish-if-version-mismatch": "lerna exec --stream -- publish-if-version-mismatch"
   },
   "author": "Patrick Braune <pabra@netzfruech.de>",
   "devDependencies": {
