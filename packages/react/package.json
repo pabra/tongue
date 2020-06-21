@@ -1,6 +1,6 @@
 {
   "name": "@pabra/tongue-react",
-  "version": "0.1.11",
+  "version": "0.1.13",
   "description": "> TODO: description",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -42,8 +42,8 @@
   },
   "homepage": "https://github.com/pabra/tongue/tree/master/packages/react#readme",
   "dependencies": {
-    "@pabra/tongue-common": "^0.1.11",
-    "@pabra/tongue-translate": "^0.1.11",
+    "@pabra/tongue-common": "^0.1.13",
+    "@pabra/tongue-translate": "^0.1.13",
     "react-hooksack": "^1.4.8"
   },
   "devDependencies": {
