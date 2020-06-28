@@ -10,6 +10,7 @@ import {
   renameTongueEntry,
   writeTongeFiles,
 } from './manage';
+import { getOwnPackageJson, getOwnVersionString } from './utils';
 
 const args = arg({
   // Types
@@ -32,44 +33,39 @@ const args = arg({
 });
 
 const showHelp = (): void => {
-  process.stdout.write(
-    `usage ${basename(process.argv[1])} [options]
+  const { description } = getOwnPackageJson();
+  const help = [
+    getOwnVersionString(),
+    description,
+    '',
+    'USAGE:',
+    `    ${basename(process.argv[1])} [OPTIONS]`,
+    '',
+    'OPTIONS:',
+    '    -h, --help',
+    '        show this help',
+    '',
+    '    -v, --version',
+    '        show version',
+    '',
+    '    -c <FILE_NAME>, --config=<FILE_NAME>',
+    '        path to the config file',
+    '',
+    '    -s, --sort-and-clean',
+    '        just sort and clean entry and translation files',
+    '',
+    '    -d <ENTRY_NAME>, --delete-entry=<ENTRY_NAME>',
+    '        delete entry "ENTRY_NAME" from entry and translations files',
+    '',
+    '    -r --old <OLD_NAME> --new <NEW_NAME>, --rename-entry --old=<OLD_NAME> --new=<NEW_NAME>',
+    '        rename "OLD_NAME" entry to "NEW_NAME"',
+  ].join('\n');
 
-    Options:
-      -h, --help        show this help
-      -v, --version     show version
-      -c <file>, --config-file=<file>
-                        path to the config file
-      -s, --sort-and-clean
-                        just sort and clean entry and translation files
-      -d entry-name, --delete-entry=<entry-name>
-                        delete entry "entry-name" from entry and translations files
-      -r --old old-name --new new-name, --rename-entry --old=old-name --new=new-name
-                        rename "old-name" entry to "new-name"
-    \n`,
-  );
+  process.stdout.write(`${help}\n`);
 };
 
 const showVersion = (): void => {
-  let packageJson: any = {};
-
-  /* eslint-disable node/no-missing-require, @typescript-eslint/no-var-requires */
-  try {
-    packageJson = require('../package.json');
-  } catch (err1) {
-    if (err1.code !== 'MODULE_NOT_FOUND') {
-      throw err1;
-    }
-    try {
-      packageJson = require('../../package.json');
-    } catch (err2) {
-      if (err2.code !== 'MODULE_NOT_FOUND') {
-        throw err2;
-      }
-    }
-  }
-  /* eslint-enable node/no-missing-require, @typescript-eslint/no-var-requires */
-  process.stdout.write(`${packageJson.name} version: ${packageJson.version}\n`);
+  process.stdout.write(`${getOwnVersionString()}\n`);
 };
 
 if (args['--help']) {
