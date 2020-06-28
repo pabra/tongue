@@ -56,7 +56,7 @@ const getJsonFile = <T extends rt.Runtype>(
   return runtype.check(content);
 };
 
-export const writeJsonFile = (
+const writeJsonFile = (
   path: string,
   content: Record<string | number, any>,
 ): void => {
