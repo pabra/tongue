@@ -10,6 +10,10 @@ import {
   renameTongueEntry,
   writeTongeFiles,
 } from './manage';
+import {
+  // findTongueImports,
+  main,
+} from './parse';
 import { getOwnPackageJson, getOwnVersionString } from './utils';
 
 const args = arg({
@@ -103,6 +107,10 @@ if (args['--help']) {
 
       const renamedFiles = renameTongueEntry(tongueFiles, oldEntry, newEntry);
       writeTongeFiles(renamedFiles);
+    } else {
+      // TODO: remove block
+      // findTongueImports(config);
+      main(config);
     }
   } catch (err) {
     console.log(String(err));

@@ -1,0 +1,8 @@
+{
+  "test": {},
+  "test with args": {
+    "args": {
+      "arg": "name of the arg"
+    }
+  }
+}

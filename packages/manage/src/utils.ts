@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-type StringObject = { [_: string]: any };
+type StringObject = Record<string, any>;
 
 const getObjectSorted = (o: StringObject): StringObject =>
   Object.keys(o)
@@ -11,13 +11,13 @@ const getObjectSorted = (o: StringObject): StringObject =>
       return acc;
     }, {});
 
-const getPackageJson = (dir: string): Record<string, any> => {
+const getPackageJson = (dir: string): StringObject => {
   const path = join(dir, 'package.json');
 
   return JSON.parse(readFileSync(path, 'utf-8'));
 };
 
-const getOwnPackageJson = (): Record<string, any> => {
+const getOwnPackageJson = (): StringObject => {
   try {
     // while development, __dirname is src/ -> package.json must be one dir up
     return getPackageJson(join(__dirname, '..'));
