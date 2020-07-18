@@ -101,6 +101,41 @@ const getImportDeclarationFilter = (source: string) => (
   return node;
 };
 
+const variableDeclaratorFilter = (
+  _context: TSESTree.Node,
+  node: TSESTree.Node,
+) => {
+  if (node.type !== AST_NODE_TYPES.VariableDeclarator) {
+    return;
+  }
+
+  return node;
+};
+
+const getVariableDeclaratorForCallExpressionFilter = (calleeName: string) => (
+  _context: TSESTree.Node,
+  node: TSESTree.Node,
+  parent: TSESTree.Node | undefined,
+) => {
+  if (node.type !== AST_NODE_TYPES.CallExpression) {
+    return;
+  }
+
+  if (node.callee.type !== AST_NODE_TYPES.Identifier) {
+    return;
+  }
+
+  if (node.callee.name !== calleeName) {
+    return;
+  }
+
+  if (!parent || parent.type !== AST_NODE_TYPES.VariableDeclarator) {
+    return;
+  }
+
+  return parent;
+};
+
 const getIdentifierForImportDeclarationFilter = (
   source: string,
   imported: string,
@@ -190,6 +225,33 @@ const doTongueTranslate = (ast: TSESTree.Node) => {
     ast,
   );
   console.log('identifiers:', identifiers); // TODO: remove DEBUG
+  debugger;
+
+  if (identifiers.length > 1) {
+    throw new Error('expected none or 1 identifier');
+  }
+
+  const identifier = identifiers.length === 1 ? identifiers[0] : undefined;
+
+  if (!identifier) {
+    return;
+  }
+
+  const callExpressions = myTraverse(
+    getVariableDeclaratorForCallExpressionFilter(identifier.name),
+    ast,
+  );
+  console.log('callExpressions:', callExpressions); // TODO: remove DEBUG
+  debugger;
+
+  callExpressions.forEach(callExpression => {
+    const variableDeclarators = myTraverse(
+      variableDeclaratorFilter,
+      callExpression,
+    );
+    console.log('variableDeclarators:', variableDeclarators); // TODO: remove DEBUG
+    debugger;
+  });
 };
 
 // type NodeHandlers = { [name: string]: NodeHandler };
