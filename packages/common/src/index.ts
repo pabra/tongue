@@ -7,4 +7,4 @@ export {
   validArgExp,
 } from './types';
 export type { Config, EntriesFile, TranslationFile } from './types';
-export { isKeyof } from './utils';
+export { assertNever, isKeyof } from './utils';

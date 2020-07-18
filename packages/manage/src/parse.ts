@@ -1,6 +1,7 @@
-import { Config } from '@pabra/tongue-common';
+import { assertNever, Config } from '@pabra/tongue-common';
 // import { parse } from '@typescript-eslint/parser';
 import {
+  AST_NODE_TYPES,
   parse,
   simpleTraverse,
   TSESTree,
@@ -38,52 +39,201 @@ import { extname, join } from 'path';
 // type IdentifiersAndHandlers = Readonly<{
 //   [name: string]: IdentifierAndHandler;
 // }>;
-type NodeHandler = (
-  context: TSESTree.Node,
+
+// type NodeHandler = <
+//   NodeType extends TSESTree.Node,
+//   ReturnType extends TSESTree.Node
+// >(
+//   context: TSESTree.Node,
+//   node: NodeType ,
+//   parent: TSESTree.Node | undefined,
+// ) => (ReturnType ) | void;
+
+// const identifierForImportDefaultSpecifierFilter = (
+//   _context: TSESTree.ImportDeclaration,
+//   node: TSESTree.Node,
+// ) => {
+//   if (node.type !== AST_NODE_TYPES.ImportDefaultSpecifier) {
+//     return;
+//   }
+//
+//   return node.local;
+// };
+
+// const getIdentifierForImportSpecifierFilter = (imported: string) => (
+//   _context: TSESTree.ImportDeclaration,
+//   node: TSESTree.Node,
+// ) => {
+//   if (node.type !== AST_NODE_TYPES.ImportSpecifier) {
+//     return;
+//   }
+//
+//   if (node.imported.name !== imported) {
+//     return;
+//   }
+//
+//   return node.local;
+// };
+
+// const identifierForImportNamespaceSpecifierFilter = (
+//   _context: TSESTree.ImportDeclaration,
+//   node: TSESTree.Node,
+// ) => {
+//   if (node.type !== AST_NODE_TYPES.ImportNamespaceSpecifier) {
+//     return;
+//   }
+//
+//   return node.local;
+// };
+
+const getImportDeclarationFilter = (source: string) => (
+  _context: TSESTree.Node,
   node: TSESTree.Node,
-  parent: TSESTree.Node | undefined,
-) => TSESTree.Node | TSESTree.Node[] | void;
+) => {
+  if (node.type !== AST_NODE_TYPES.ImportDeclaration) {
+    return;
+  }
+
+  if (node.source.value !== source) {
+    return;
+  }
+
+  return node;
+};
+
+const getIdentifierForImportDeclarationFilter = (
+  source: string,
+  imported: string,
+) => {
+  const importDeclarationFilter = getImportDeclarationFilter(source);
+
+  return (context: TSESTree.Node, node: TSESTree.Node) => {
+    const importDeclaration = importDeclarationFilter(context, node);
+
+    if (!importDeclaration) {
+      return;
+    }
+
+    const identifiers = importDeclaration.specifiers.reduce<
+      TSESTree.Identifier[]
+    >((acc, specifier) => {
+      switch (specifier.type) {
+        case AST_NODE_TYPES.ImportDefaultSpecifier:
+          return imported === 'default' ? [...acc, specifier.local] : acc;
+
+        case AST_NODE_TYPES.ImportSpecifier:
+          return specifier.imported.name === imported
+            ? [...acc, specifier.local]
+            : acc;
+
+        case AST_NODE_TYPES.ImportNamespaceSpecifier:
+          // import * as thing from 'there'
+          console.warn('ImportNamespaceSpecifier is currently not supported');
+          return acc;
+
+        default:
+          assertNever(specifier);
+      }
+    }, []);
+
+    if (identifiers.length > 1) {
+      throw new Error('expected none or 1 identifier');
+    }
+
+    return identifiers.length === 1 ? identifiers[0] : undefined;
+  };
+};
+
+// const getImportIndentifier = (name: string): NodeHandler => (
+//   context,
+//   node,
+//   parent,
+// ) => {
+//   const identifiers: TSESTree.Identifier[] = [];
+//   return identifiers;
+// };
+
+// const fn = getImportDeclarationFinder('pabra', 'default');
+// const x = fn();
+
+const doTongueTranslate = (ast: TSESTree.Node) => {
+  // const importDeclarations = myTraverse(
+  //   (_context, node) => (node.type === 'ImportDeclaration' ? node : undefined),
+  //   ast,
+  // ).filter(node => node.source.value === '@pabra/tongue-translate');
+
+  // const importDeclarations = myTraverse(
+  //   getImportDeclarationFilter('@pabra/tongue-translate'),
+  //   ast,
+  // );
+
+  // const importDefaultSpecifiers = importDeclarations.reduce<
+  //   TSESTree.Identifier[]
+  // >((acc, importDeclaration) => {
+  //   return [
+  //     ...acc,
+  //     ...myTraverse(
+  //       (_context: TSESTree.Node, node: TSESTree.Node) =>
+  //         node.type === 'Identifier' ? node : undefined,
+  //       importDeclaration,
+  //     ),
+  //   ];
+  // }, []);
+
+  // const importDeclarations = myTraverse(filterImportDeclaration, ast);
+
+  const identifiers = myTraverse(
+    getIdentifierForImportDeclarationFilter(
+      '@pabra/tongue-translate',
+      'default',
+    ),
+    ast,
+  );
+  console.log('identifiers:', identifiers); // TODO: remove DEBUG
+};
+
 // type NodeHandlers = { [name: string]: NodeHandler };
-const nodeHandlers = {
-  importTongueTranslate: (context: TSESTree.Node, node: TSESTree.Node) => {
-    if (node.type !== 'ImportDeclaration') {
-      return;
-    }
-    if (node.source.value !== '@pabra/tongue-translate') {
-      return;
-    }
-    console.log(context, node);
-    debugger;
-    const importedNodes = myTraverse(nodeHandlers.defaultImportTranslate, node);
-    if (importedNodes.length !== 1) {
-      throw new Error('expected exactly 1 node');
-    }
-    debugger;
-    myTraverse(nodeHandlers.usageTranslate, context);
-    return nodes[0];
-  },
-  defaultImportTranslate: (
-    context: TSESTree.Node,
-    node: TSESTree.Node,
-    parent: TSESTree.Node | undefined,
-  ) => {
-    if (node.type !== 'ImportDefaultSpecifier') {
-      return;
-    }
-    console.log('context: %o', context);
-    console.log('node: %o', node);
-    console.log('parent: %o', parent);
-    debugger;
-    return node;
-  },
-  usageTranslate: (
-    context: TSESTree.Node,
-    node: TSESTree.Node,
-    parent: TSESTree.Node | undefined,
-  ) => {},
-  separateCallUsage: () => {},
-  getSeparateCallUsageOfNode: (name: string) => {},
-} as const;
+// type NodeHandlerKeys = 'importTongueTranslate' | 'defaultImportTranslate';
+// const nodeHandlers: { [K in NodeHandlerKeys]: NodeHandler } = {
+//   importTongueTranslate: (context: TSESTree.Node, node: TSESTree.Node) => {
+//     if (node.type !== 'ImportDeclaration') {
+//       return;
+//     }
+//     if (node.source.value !== '@pabra/tongue-translate') {
+//       return;
+//     }
+//     console.log(context, node);
+//     debugger;
+//     const importedNodes = myTraverse(nodeHandlers.defaultImportTranslate, node);
+//     if (importedNodes.length !== 1) {
+//       throw new Error('expected exactly 1 node');
+//     }
+//     debugger;
+//     // const nodes = myTraverse(nodeHandlers.usageTranslate, context);
+//     // return nodes[0];
+//   },
+//   defaultImportTranslate: (
+//     context: TSESTree.Node,
+//     node: TSESTree.Node,
+//     parent: TSESTree.Node | undefined,
+//   ): TSESTree.ImportDefaultSpecifier | void => {
+//     if (node.type !== 'ImportDefaultSpecifier') {
+//       return;
+//     }
+//     console.log('context: %o', context);
+//     console.log('node: %o', node);
+//     console.log('parent: %o', parent);
+//     debugger;
+//     return node;
+//   },
+//   // usageTranslate: (
+//   //   context: TSESTree.Node,
+//   //   node: TSESTree.Node,
+//   //   parent: TSESTree.Node | undefined,
+//   // ) => {},
+//   // separateCallUsage: () => {},
+//   // getSeparateCallUsageOfNode: (name: string) => {},
+// } as const;
 
 // const tongueImports = { '@pabra/tongue-translate': { undefined: 1 } } as const;
 
@@ -123,18 +273,36 @@ const getRelevantFiles = (dir: string): string[] => {
   ];
 };
 
-const myTraverse = (handler: NodeHandler, traverseNode: TSESTree.Node) => {
-  const nodes: TSESTree.Node[] = [];
+const myTraverse = <
+  TraverseNode extends TSESTree.Node,
+  T extends TSESTree.Node,
+  Handler extends (
+    context: TraverseNode,
+    node: TSESTree.Node,
+    parent: TSESTree.Node | undefined,
+  ) => T | undefined
+>(
+  handler: Handler,
+  traverseNode: TraverseNode,
+) => {
+  type R = Exclude<ReturnType<Handler>, undefined>;
+  // type ReturnNode = R extends TSESTree.Node ?  R&TSESTree.Node : never;
+  // type ReturnNode = (Exclude<T & ReturnType<Handler>, undefined>) & TSESTree.Node;
+  const nodes: R[] = [];
   const enter = (node: TSESTree.Node, parent: TSESTree.Node | undefined) => {
-    const returnValue = handler(traverseNode, node, parent);
+    const returnValue = handler(traverseNode, node, parent) as R;
 
-    if (returnValue === undefined) {
-      return;
-    } else if (Array.isArray(returnValue)) {
-      returnValue.forEach(value => nodes.push(value));
-    } else {
+    if (returnValue) {
       nodes.push(returnValue);
     }
+
+    // if (returnValue === undefined) {
+    //   return;
+    // } else if (Array.isArray(returnValue)) {
+    //   returnValue.forEach(value => nodes.push(value));
+    // } else {
+    //   nodes.push(returnValue);
+    // }
   };
 
   simpleTraverse(traverseNode, { enter });
@@ -261,9 +429,11 @@ const main = (config: Config): void => {
       file,
     ),
   }));
-  console.log('relevantAsTrees: %o', relevantAsTrees); // TODO: remove DEBUG
+  // console.log('relevantAsTrees: %o', relevantAsTrees); // TODO: remove DEBUG
+
   relevantAsTrees.forEach(asTree =>
-    myTraverse(nodeHandlers.importTongueTranslate, asTree.ast),
+    // myTraverse(nodeHandlers.importTongueTranslate, asTree.ast),
+    doTongueTranslate(asTree.ast),
   );
   debugger;
   // const tongueImporters = findTongueImports(relevantAsTrees);
