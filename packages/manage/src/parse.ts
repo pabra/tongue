@@ -191,6 +191,51 @@ const getIdentifierForImportDeclarationFilter = (
 // const fn = getImportDeclarationFinder('pabra', 'default');
 // const x = fn();
 
+const getValueIdentifierForObjectPatternKey = (
+  keyName: string,
+  objectPattern: TSESTree.ObjectPattern,
+) => {
+  const foundProperty = objectPattern.properties
+    .filter((property): property is TSESTree.Property => {
+      switch (property.type) {
+        case AST_NODE_TYPES.RestElement:
+          console.warn('cannot follow RestElement');
+          return false;
+
+        case AST_NODE_TYPES.Property:
+          return true;
+
+        default:
+          assertNever(property);
+      }
+    })
+    .find((property): boolean => {
+      property;
+      if (property.key.type !== AST_NODE_TYPES.Identifier) {
+        property;
+        console.warn('can only follow Identifier');
+        return false;
+      }
+
+      if (property.key.name !== keyName) {
+        return false;
+      }
+
+      return true;
+    });
+
+  if (foundProperty === undefined) {
+    return undefined;
+  }
+
+  if (foundProperty.value.type !== AST_NODE_TYPES.Identifier) {
+    console.warn('can only follow Identifier');
+    return undefined;
+  }
+
+  return foundProperty.value;
+};
+
 const doTongueTranslate = (ast: TSESTree.Node) => {
   // const importDeclarations = myTraverse(
   //   (_context, node) => (node.type === 'ImportDeclaration' ? node : undefined),
@@ -237,21 +282,35 @@ const doTongueTranslate = (ast: TSESTree.Node) => {
     return;
   }
 
-  const callExpressions = myTraverse(
+  const variableDeclarators = myTraverse(
     getVariableDeclaratorForCallExpressionFilter(identifier.name),
     ast,
   );
-  console.log('callExpressions:', callExpressions); // TODO: remove DEBUG
+  console.log('variableDeclarators:', variableDeclarators); // TODO: remove DEBUG
   debugger;
 
-  callExpressions.forEach(callExpression => {
-    const variableDeclarators = myTraverse(
-      variableDeclaratorFilter,
-      callExpression,
+  const objectVariableDeclarators = variableDeclarators.filter(
+    variableDeclarator => {
+      if (variableDeclarator.id.type === AST_NODE_TYPES.ObjectPattern) {
+        return true;
+      }
+
+      console.warn('only ObjectPattern can be followed currently');
+      return false;
+    },
+  );
+  console.log('objectVariableDeclarators:', objectVariableDeclarators); // TODO: remove DEBUG
+  debugger;
+
+  const translateIdentifier = objectVariableDeclarators.reduce<
+    TSESTree.Identifier[]
+  >((acc, obj) => {
+    const foundIdentifier = getValueIdentifierForObjectPatternKey(
+      'translate',
+      obj.id,
     );
-    console.log('variableDeclarators:', variableDeclarators); // TODO: remove DEBUG
-    debugger;
-  });
+    return acc;
+  }, []);
 };
 
 // type NodeHandlers = { [name: string]: NodeHandler };
