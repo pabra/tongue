@@ -125,6 +125,33 @@ test('t with dicts', () => {
   // //^^^^^^^^^^^^^^^^
 });
 
+test('new entry', () => {
+  const { t, translate } = init(entries, dicts);
+
+  expect(translate('en', 'a new entry', '_is_new_entry_')).toBe(
+    '__a new entry__',
+  );
+
+  expect(translate('en', '{a} new entry', '_is_new_entry_')).toBe(
+    '__{a} new entry__',
+  );
+
+  expect(
+    translate('en', 'a new entry with {a}', '_is_new_entry_', {
+      a: 'my A',
+      b: 'my B',
+    }),
+  ).toBe('__a new entry with my A__');
+
+  expect(t('a new entry', '_is_new_entry_')).toBe('__a new entry__');
+
+  expect(t('{a} new entry', '_is_new_entry_')).toBe('__{a} new entry__');
+
+  expect(
+    t('a new entry with {b}', '_is_new_entry_', { a: 'my A', b: 'my B' }),
+  ).toBe('__a new entry with my B__');
+});
+
 test('init with empty dict', () => {
   expect(() => init(entries, {})).toThrow();
 });
