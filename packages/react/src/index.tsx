@@ -5,17 +5,42 @@ import React from 'react';
 import makeStore from 'react-hooksack';
 
 type TranslateOverload<Entries extends EntriesFile> = {
-  <E extends keyof Entries, A = Args<Entries, E>>({
+  // new entry with args
+  <E extends string, A extends Args<EntriesFile, E>>({
     entry,
+    _is_new_entry_,
+    args,
   }: {
-    entry: E & [A] extends [never] ? E : never;
+    entry: E;
+    _is_new_entry_: true;
+    args: A;
   }): JSX.Element;
+
+  // new entry without args
+  <E extends string>({
+    entry,
+    _is_new_entry_,
+  }: {
+    entry: E;
+    _is_new_entry_: true;
+  }): JSX.Element;
+
+  // entry with args
   <E extends keyof Entries, A extends Args<Entries, E>>({
     entry,
     args,
   }: {
     entry: E;
+    _is_new_entry_?: false;
     args: A;
+  }): JSX.Element;
+
+  // entry without args
+  <E extends keyof Entries, A = Args<Entries, E>>({
+    entry,
+  }: {
+    entry: E & [A] extends [never] ? E : never;
+    _is_new_entry_?: false;
   }): JSX.Element;
 };
 
@@ -65,15 +90,19 @@ const init = <
     return { language, setLanguage, translate };
   };
 
-  const Translate: TranslateOverload<Entries> = <E extends keyof Entries>({
+  const Translate: TranslateOverload<Entries> = ({
     entry,
+    _is_new_entry_,
     args,
   }: {
-    entry: E;
+    entry: string;
+    _is_new_entry_?: boolean;
     args?: any;
   }) => {
     const { translate: t } = useTranslate();
-    return <>{t(entry, args)}</>;
+    return (
+      <>{_is_new_entry_ ? t(entry, '_is_new_entry_', args) : t(entry, args)}</>
+    );
   };
 
   return {
