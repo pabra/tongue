@@ -50,6 +50,12 @@ test('translate', () => {
   expect(translate('en', 'test with args', { a: 'my A', b: 'my B' })).toBe(
     'test args my A and my B.',
   );
+
+  const anyArgs: any = { aa: 'my A', b: 'my B' };
+  expect(translate('en', 'test with args', anyArgs)).toBe(
+    'test args {a} and my B.',
+  );
+
   expect(
     translate('en', 'test with duplicate args', { a: 'my A', b: 'my B' }),
   ).toBe('test b my B and b my B and a my A and my B');
@@ -128,28 +134,24 @@ test('t with dicts', () => {
 test('new entry', () => {
   const { t, translate } = init(entries, dicts);
 
-  expect(translate('en', 'a new entry', '_is_new_entry_')).toBe(
-    '__a new entry__',
-  );
+  expect(translate.newEntry('en', 'a new entry')).toBe('__a new entry__');
 
-  expect(translate('en', '{a} new entry', '_is_new_entry_')).toBe(
-    '__{a} new entry__',
-  );
+  expect(translate.newEntry('en', '{a} new entry')).toBe('__{a} new entry__');
 
   expect(
-    translate('en', 'a new entry with {a}', '_is_new_entry_', {
+    translate.newEntry('en', 'a new entry with {a}', {
       a: 'my A',
       b: 'my B',
     }),
   ).toBe('__a new entry with my A__');
 
-  expect(t('a new entry', '_is_new_entry_')).toBe('__a new entry__');
+  expect(t.newEntry('a new entry')).toBe('__a new entry__');
 
-  expect(t('{a} new entry', '_is_new_entry_')).toBe('__{a} new entry__');
+  expect(t.newEntry('{a} new entry')).toBe('__{a} new entry__');
 
-  expect(
-    t('a new entry with {b}', '_is_new_entry_', { a: 'my A', b: 'my B' }),
-  ).toBe('__a new entry with my B__');
+  expect(t.newEntry('a new entry with {b}', { a: 'my A', b: 'my B' })).toBe(
+    '__a new entry with my B__',
+  );
 });
 
 test('init with empty dict', () => {

@@ -22,9 +22,7 @@ export type AllTranslations<Entries extends EntriesFile> = Record<
   Translation<Entries>
 >;
 
-type NewEntry = '_is_new_entry_';
-
-type TranslateOverload<
+type NewTranslateOverload<
   Entries extends EntriesFile,
   Translations extends AllTranslations<Entries>
 > = {
@@ -36,16 +34,18 @@ type TranslateOverload<
   >(
     lang: L,
     entry: E,
-    newEntry: NewEntry,
     args: A,
   ): string;
 
   // new entry without args
-  <L extends keyof Translations, E extends string>(
-    lang: L,
-    entry: E,
-    newEntry: NewEntry,
-  ): string;
+  <L extends keyof Translations, E extends string>(lang: L, entry: E): string;
+};
+
+type TranslateOverload<
+  Entries extends EntriesFile,
+  Translations extends AllTranslations<Entries>
+> = {
+  newEntry: NewTranslateOverload<Entries, Translations>;
 
   // entry with args
   <
@@ -65,16 +65,16 @@ type TranslateOverload<
   ): string;
 };
 
-export type TOverload<Entries extends EntriesFile> = {
+type NewTOverload = {
   // new entry with args
-  <E extends string, A extends Args<EntriesFile, E>>(
-    entry: E,
-    newEntry: NewEntry,
-    args: A,
-  ): string;
+  <E extends string, A extends Args<EntriesFile, E>>(entry: E, args: A): string;
 
   // new entry without args
-  <E extends string>(entry: E, newEntry: NewEntry): string;
+  <E extends string>(entry: E): string;
+};
+
+export type TOverload<Entries extends EntriesFile> = {
+  newEntry: NewTOverload;
 
   // entry wth args
   <E extends keyof Entries, A extends Args<Entries, E>>(
@@ -144,7 +144,6 @@ const init = <
   >(
     lang: L,
     entry: E,
-    newEntryOrArgs?: NewEntry | A,
     args?: A,
   ) => {
     assertValidLanguage(lang);
@@ -152,23 +151,24 @@ const init = <
     const dict = translations[lang];
     const translation = isKeyof(dict, entry) ? dict[entry] : null;
     const value = translation ?? markNotFound(entry);
-    const argsToUse =
-      newEntryOrArgs === '_is_new_entry_' ? args : newEntryOrArgs;
 
-    return argsToUse
+    return args
       ? value.replace(argPlaceholderExp, (match, argName) =>
-          typeof argName === 'string' && isKeyof(argsToUse, argName)
-            ? argsToUse[argName]
+          typeof argName === 'string' && isKeyof(args, argName)
+            ? args[argName]
             : match,
         )
       : value;
   };
 
-  const t: TOverload<Entries> = (
-    key: any,
-    newEntryOrArgs?: any,
+  translate.newEntry = translate;
+
+  const t: TOverload<Entries> = <E extends keyof Entries>(
+    key: E,
     args?: any,
-  ): string => translate(language, key, newEntryOrArgs, args);
+  ): string => translate(language, key, args);
+
+  t.newEntry = t;
 
   return { translate, setLanguage, getLanguage, t };
 };

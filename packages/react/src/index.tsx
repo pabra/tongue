@@ -4,26 +4,22 @@ import type { AllTranslations, Args, TOverload } from '@pabra/tongue-translate';
 import React from 'react';
 import makeStore from 'react-hooksack';
 
-type TranslateOverload<Entries extends EntriesFile> = {
+type NewTranslateOverload = {
   // new entry with args
   <E extends string, A extends Args<EntriesFile, E>>({
     entry,
-    _is_new_entry_,
     args,
   }: {
     entry: E;
-    _is_new_entry_: true;
     args: A;
   }): JSX.Element;
 
   // new entry without args
-  <E extends string>({
-    entry,
-    _is_new_entry_,
-  }: {
-    entry: E;
-    _is_new_entry_: true;
-  }): JSX.Element;
+  <E extends string>({ entry }: { entry: E }): JSX.Element;
+};
+
+type TranslateOverload<Entries extends EntriesFile> = {
+  newEntry: NewTranslateOverload;
 
   // entry with args
   <E extends keyof Entries, A extends Args<Entries, E>>({
@@ -31,7 +27,6 @@ type TranslateOverload<Entries extends EntriesFile> = {
     args,
   }: {
     entry: E;
-    _is_new_entry_?: false;
     args: A;
   }): JSX.Element;
 
@@ -40,7 +35,6 @@ type TranslateOverload<Entries extends EntriesFile> = {
     entry,
   }: {
     entry: E & [A] extends [never] ? E : never;
-    _is_new_entry_?: false;
   }): JSX.Element;
 };
 
@@ -87,23 +81,23 @@ const init = <
       args?: any,
     ) => tongue.translate(language, entry, args);
 
+    translate.newEntry = translate;
+
     return { language, setLanguage, translate };
   };
 
   const Translate: TranslateOverload<Entries> = ({
     entry,
-    _is_new_entry_,
     args,
   }: {
     entry: string;
-    _is_new_entry_?: boolean;
     args?: any;
   }) => {
     const { translate: t } = useTranslate();
-    return (
-      <>{_is_new_entry_ ? t(entry, '_is_new_entry_', args) : t(entry, args)}</>
-    );
+    return <>{t(entry, args)}</>;
   };
+
+  Translate.newEntry = Translate;
 
   return {
     translate: tongue.translate,

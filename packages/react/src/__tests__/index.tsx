@@ -316,7 +316,7 @@ test('translate with new Entry', async () => {
 
     return (
       <span data-testid="translate-fn">
-        {language}: {t('a new entry', '_is_new_entry_')}
+        {language}: {t.newEntry('a new entry')}
       </span>
     );
   };
@@ -370,7 +370,7 @@ test('translate with new Entry', async () => {
       <div>
         <ComponentUsingTranslateFn />
         <HOC>
-          <Translate entry="a new entry" _is_new_entry_ />
+          <Translate.newEntry entry="a new entry" />
         </HOC>
         <LanguageToggle />
         <LanguageSelect />
@@ -461,7 +461,7 @@ test('translate with args and new Entry', async () => {
 
     return (
       <span data-testid="translate-fn">
-        {language}: {t('a new entry {b}', '_is_new_entry_', { b: 'my B' })}
+        {language}: {t.newEntry('a new entry {b}', { b: 'my B' })}
       </span>
     );
   };
@@ -515,11 +515,7 @@ test('translate with args and new Entry', async () => {
       <div>
         <ComponentUsingTranslateFn />
         <HOC>
-          <Translate
-            entry="a new entry {b}"
-            _is_new_entry_
-            args={{ b: 'my B' }}
-          />
+          <Translate.newEntry entry="a new entry {b}" args={{ b: 'my B' }} />
         </HOC>
         <LanguageToggle />
         <LanguageSelect />
@@ -532,9 +528,9 @@ test('translate with args and new Entry', async () => {
   await waitFor(
     () => {
       expect(getByTestId('translate-fn').textContent).toBe(
-        'en: __a new entry {b}__',
+        'en: __a new entry my B__',
       );
-      expect(getByTestId('hoc').textContent).toBe('__a new entry {b}__');
+      expect(getByTestId('hoc').textContent).toBe('__a new entry my B__');
       expect(
         (getByTestId('language-option-en') as HTMLOptionElement).selected,
       ).toBe(true);
@@ -554,9 +550,9 @@ test('translate with args and new Entry', async () => {
   await waitFor(
     () => {
       expect(getByTestId('translate-fn').textContent).toBe(
-        'de: __a new entry {b}__',
+        'de: __a new entry my B__',
       );
-      expect(getByTestId('hoc').textContent).toBe('__a new entry {b}__');
+      expect(getByTestId('hoc').textContent).toBe('__a new entry my B__');
       expect(
         (getByTestId('language-option-en') as HTMLOptionElement).selected,
       ).toBe(false);
@@ -576,9 +572,9 @@ test('translate with args and new Entry', async () => {
   await waitFor(
     () => {
       expect(getByTestId('translate-fn').textContent).toBe(
-        'en: __a new entry {b}__',
+        'en: __a new entry my B__',
       );
-      expect(getByTestId('hoc').textContent).toBe('__a new entry {b}__');
+      expect(getByTestId('hoc').textContent).toBe('__a new entry my B__');
       expect(
         (getByTestId('language-option-en') as HTMLOptionElement).selected,
       ).toBe(true);
