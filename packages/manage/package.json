@@ -27,9 +27,9 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:check": "tsc",
     "build": "run-p build:cjs build:esm",
-    "lint": "eslint \"src/**/*.{js,ts,jsx,tsx}\"",
-    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,html,css,scss,yml,yaml}\"",
-    "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,json,html,css,scss,yml,yaml}\""
+    "lint": "eslint \"{src,__tests__}/**/*.{js,ts,jsx,tsx}\"",
+    "format": "prettier --write \"{src,__tests__}/**/*.{js,ts,jsx,tsx,json,html,css,scss,yml,yaml}\"",
+    "format:check": "prettier --check \"{src,__tests__}/**/*.{js,ts,jsx,tsx,json,html,css,scss,yml,yaml}\""
   },
   "keywords": [],
   "author": "Patrick Braune <pabra@netzfruech.de>",

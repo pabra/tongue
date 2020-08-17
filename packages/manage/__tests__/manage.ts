@@ -3,7 +3,7 @@ import {
   cleanTongueFiles,
   removeTongueEntry,
   renameTongueEntry,
-} from '../manage';
+} from '../src/manage';
 
 const tongueFiles = {
   entriesFile: {

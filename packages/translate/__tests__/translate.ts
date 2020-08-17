@@ -1,4 +1,4 @@
-import init from '../translate';
+import init from '../src/translate';
 
 const entries = {
   'just test': {},
