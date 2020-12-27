@@ -137,10 +137,10 @@ export const getImportDeclarationForProject = (
 
 const complainAboutNodes = (
   nodes: Readonly<Node[]>,
-  message = 'cannot follow node: %o',
+  msg = 'cannot follow node: %o',
   yell: (message: string, ...optional: any[]) => void = console.warn,
 ): void => {
-  nodes.forEach(node => yell(message, getLineAndCharacter(node)));
+  nodes.forEach(node => yell(msg, getLineAndCharacter(node)));
 };
 
 const getCallExpressionsForDeclarationReferences = (
