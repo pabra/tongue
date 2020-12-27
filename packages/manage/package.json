@@ -47,30 +47,30 @@
   "homepage": "https://github.com/pabra/tongue/tree/master/packages/manage#readme",
   "dependencies": {
     "@pabra/tongue-common": "^0.1.13",
-    "arg": "^4.1.3",
+    "arg": "^5.0.0",
     "runtypes": "^5.0.1",
-    "ts-morph": "^7.3.0"
+    "ts-morph": "^9.1.0"
   },
   "devDependencies": {
     "@pabra/tongue-translate": "^0.1.13",
-    "@types/jest": "^26.0.10",
-    "@typescript-eslint/eslint-plugin": "^3.9.0",
-    "@typescript-eslint/parser": "^3.9.0",
-    "eslint": "^7.7.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^23.20.0",
+    "@types/jest": "^26.0.19",
+    "@typescript-eslint/eslint-plugin": "^4.11.0",
+    "@typescript-eslint/parser": "^4.11.0",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.4.0",
-    "npm-check-updates": "^7.1.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "jest": "^26.6.3",
+    "npm-check-updates": "^10.2.5",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.0.5",
+    "prettier": "^2.2.1",
     "prettier-plugin-organize-imports": "^1.1.1",
-    "publish-if-version-mismatch": "^0.1.7",
+    "publish-if-version-mismatch": "^0.1.8",
     "rimraf": "^3.0.2",
-    "ts-jest": "^26.2.0",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
   }
 }
