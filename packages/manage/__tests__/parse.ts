@@ -71,47 +71,53 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 1,
         column: 8,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 6,
         column: 1,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 7,
         column: 19,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 8,
         column: 21,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 12,
         column: 27,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 16,
         column: 26,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 19,
         column: 24,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 1,
         column: 21,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 3,
         column: 1,
       },
@@ -125,27 +131,30 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 6,
         column: 1,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 7,
         column: 19,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 12,
         column: 27,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 16,
         column: 26,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 3,
         column: 1,
       },
@@ -157,17 +166,20 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 8,
         column: 21,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 19,
         column: 24,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 1,
         column: 21,
       },
@@ -181,17 +193,17 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 7,
         column: 7,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 12,
         column: 9,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 16,
         column: 7,
       },
@@ -203,12 +215,15 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 6,
         column: 1,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 3,
         column: 1,
       },
@@ -222,12 +237,12 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 12,
         column: 9,
       },
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 16,
         column: 7,
       },
@@ -239,7 +254,7 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 7,
         column: 7,
       },
@@ -253,27 +268,39 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'init.ts'),
+        filePath: join(testProjectDir, 'src', 'init.ts').replace(/\\\\/g, '/'),
         line: 13,
         column: 3,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 4,
         column: 1,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 5,
         column: 1,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 6,
         column: 1,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 16,
         column: 3,
       },
@@ -287,7 +314,10 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 9,
         column: 1,
       },
@@ -301,12 +331,17 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts')
+          .replace(/\\\\/g, '/')
+          .replace(/\\\\/g, '/'),
         line: 7,
         column: 1,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 8,
         column: 1,
       },
@@ -320,12 +355,18 @@ describe('find init usage', () => {
         .sort(sortLineAndChar),
     ).toMatchObject([
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 10,
         column: 1,
       },
       {
-        filePath: join(testProjectDir, 'src', 'translate.ts'),
+        filePath: join(testProjectDir, 'src', 'translate.ts').replace(
+          /\\\\/g,
+          '/',
+        ),
         line: 11,
         column: 1,
       },
