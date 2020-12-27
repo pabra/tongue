@@ -94,7 +94,11 @@ test('translate', async () => {
     );
   };
 
-  const { container, getByTestId } = render(<App />);
+  const { container: containerElement, getByTestId } = render(<App />);
+
+  // https://github.com/testing-library/react-testing-library/issues/841
+  // https://github.com/testing-library/dom-testing-library/pull/834
+  const container: HTMLElement = containerElement as HTMLElement;
 
   await waitFor(
     () => {
@@ -233,7 +237,11 @@ test('translate with args', async () => {
     );
   };
 
-  const { container, getByTestId } = render(<App />);
+  const { container: containerElement, getByTestId } = render(<App />);
+
+  // https://github.com/testing-library/react-testing-library/issues/841
+  // https://github.com/testing-library/dom-testing-library/pull/834
+  const container: HTMLElement = containerElement as HTMLElement;
 
   await waitFor(
     () => {
@@ -378,7 +386,11 @@ test('translate with new Entry', async () => {
     );
   };
 
-  const { container, getByTestId } = render(<App />);
+  const { container: containerElement, getByTestId } = render(<App />);
+
+  // https://github.com/testing-library/react-testing-library/issues/841
+  // https://github.com/testing-library/dom-testing-library/pull/834
+  const container: HTMLElement = containerElement as HTMLElement;
 
   await waitFor(
     () => {
@@ -523,7 +535,11 @@ test('translate with args and new Entry', async () => {
     );
   };
 
-  const { container, getByTestId } = render(<App />);
+  const { container: containerElement, getByTestId } = render(<App />);
+
+  // https://github.com/testing-library/react-testing-library/issues/841
+  // https://github.com/testing-library/dom-testing-library/pull/834
+  const container: HTMLElement = containerElement as HTMLElement;
 
   await waitFor(
     () => {
