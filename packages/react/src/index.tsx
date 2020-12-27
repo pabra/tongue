@@ -1,6 +1,6 @@
 import type { EntriesFile } from '@pabra/tongue-common';
-import tongueInit from '@pabra/tongue-translate';
 import type { AllTranslations, Args, TOverload } from '@pabra/tongue-translate';
+import tongueInit from '@pabra/tongue-translate';
 import React from 'react';
 import makeStore from 'react-hooksack';
 
