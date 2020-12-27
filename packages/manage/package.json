@@ -47,7 +47,7 @@
   "homepage": "https://github.com/pabra/tongue/tree/master/packages/manage#readme",
   "dependencies": {
     "@pabra/tongue-common": "^0.1.13",
-    "arg": "^4.1.3",
+    "arg": "^5.0.0",
     "runtypes": "^5.0.1",
     "ts-morph": "^7.3.0"
   },
