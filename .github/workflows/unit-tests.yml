@@ -30,7 +30,7 @@ jobs:
       - if: ${{ matrix.os == 'ubuntu-latest' || matrix.node == 12 }}
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - if: ${{ matrix.os == 'ubuntu-latest' || matrix.node == 12 }}
         uses: actions/setup-node@v2
