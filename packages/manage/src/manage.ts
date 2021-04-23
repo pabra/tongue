@@ -10,7 +10,7 @@ import {
 } from '@pabra/tongue-common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, isAbsolute, join } from 'path';
-import * as rt from 'runtypes';
+import type { Runtype } from 'simple-runtypes';
 import { getObjectSorted } from './utils';
 
 type TongueFiles = {
@@ -47,13 +47,13 @@ const getConfig = (path?: string): Config => {
 const getBadArgs = (args: Record<string, string>): string[] =>
   Object.keys(args).filter(arg => !fullArgExp.test(arg));
 
-const getJsonFile = <T extends rt.Runtype>(
+const getJsonFile = <T extends Runtype<any>>(
   path: string,
   runtype: T,
-): rt.Static<T> => {
+): ReturnType<T> => {
   const content = JSON.parse(readFileSync(path, 'utf-8'));
 
-  return runtype.check(content);
+  return runtype(content);
 };
 
 const writeJsonFile = (

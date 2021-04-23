@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/pabra/tongue/tree/master/packages/common#readme",
   "dependencies": {
-    "runtypes": "^6.2.1"
+    "simple-runtypes": "^6.3.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.22.0",
