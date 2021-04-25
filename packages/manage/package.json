@@ -1,6 +1,6 @@
 {
   "name": "@pabra/tongue-manage",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "> TODO: description",
   "sideEffects": false,
   "bin": {
@@ -46,13 +46,13 @@
   },
   "homepage": "https://github.com/pabra/tongue/tree/master/packages/manage#readme",
   "dependencies": {
-    "@pabra/tongue-common": "^0.1.14",
+    "@pabra/tongue-common": "^0.1.15",
     "arg": "^5.0.0",
     "simple-runtypes": "^7.0.0",
     "ts-morph": "^10.0.2"
   },
   "devDependencies": {
-    "@pabra/tongue-translate": "^0.1.14",
+    "@pabra/tongue-translate": "^0.1.15",
     "@types/jest": "^26.0.22",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
