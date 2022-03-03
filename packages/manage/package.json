@@ -49,7 +49,7 @@
     "@pabra/tongue-common": "^0.1.15",
     "arg": "^5.0.0",
     "simple-runtypes": "^7.0.0",
-    "ts-morph": "^10.0.2"
+    "ts-morph": "^14.0.0"
   },
   "devDependencies": {
     "@pabra/tongue-translate": "^0.1.15",
